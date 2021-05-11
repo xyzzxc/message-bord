@@ -1,0 +1,150 @@
+extends myLayout
+
+block resName
+  script(type='text/javascript').
+    function Delete(myid,mytitle)
+    {
+      var myA=document.getElementById("myA")
+      myA.value=myid;
+      
+      var mylbl = document.getElementById('mylbl')
+      mylbl.innerText='確定要刪除'+mytitle
+    }
+    function Update(FID,subID)
+    {
+      var myText=document.getElementById('subT'+FID+'_'+subID)
+      var myYes=document.getElementById('subY'+FID+'_'+subID)
+      var myBtn=document.getElementById('subB'+FID+'_'+subID)
+      var myCancle=document.getElementById('subC'+FID+'_'+subID)
+      var myDelete=document.getElementById('subD'+FID+'_'+subID)
+
+      myText.disabled=false
+      myYes.hidden=false
+      myBtn.hidden=true
+      myCancle.hidden=false
+      myDelete.hidden=true
+    }
+    function Cancle(FID,subID)
+    {
+      var myText=document.getElementById('subT'+FID+'_'+subID)
+      var myYes=document.getElementById('subY'+FID+'_'+subID)
+      var myBtn=document.getElementById('subB'+FID+'_'+subID)
+      var myCancle=document.getElementById('subC'+FID+'_'+subID)
+      var myDelete=document.getElementById('subD'+FID+'_'+subID)
+
+      myText.disabled=true
+      myYes.hidden=true
+      myBtn.hidden=false
+      myCancle.hidden=true
+      myDelete.hidden=false
+    }
+
+block content
+  br
+  #D1
+    if(user!=null)
+      h1 #{userName+' '} &nbsp;
+        a(href="/users/"+user)
+          img(src="/photo/"+user, height='40')
+      a.btn.btn-outline-success(href='/msg/new') 新增
+      a.btn.btn-outline-primary(href='/login') 重新登入
+      a.btn.btn-outline-warning(href='/users') 修改個資
+    else
+      h1 尚未登入
+      a.btn.btn-outline-success(href='/login') 登入
+      a.btn.btn-outline-primary(href='/registered') 註冊
+    // Button to Open the Modal
+    button.btn.btn-outline-secondary(type='button' data-toggle='modal' data-target='#myModal')
+      | &#x7D44;&#x54E1;&#x540D;&#x55AE;
+    // The Modal
+    #myModal.modal
+      .modal-dialog
+        .modal-content
+          // Modal Header
+          .modal-header
+            h4.modal-title &#x7D44;&#x54E1;&#x540D;&#x55AE;
+            button.close(type='button' data-dismiss='modal') &times;
+          // Modal body
+          .modal-body
+            option
+              span(style='font-family:DFKai-sb;') 10756001 &#x66FE;&#x54C1;&#x7FD4;
+            option
+              span(style='font-family:DFKai-sb;') 10756031 &#x8521;&#x6069;&#x8046;
+            option
+              span(style='font-family:DFKai-sb;') 10756032 &#x5433;  &#x971C;
+            option
+              span(style='font-family:DFKai-sb;') 10756040 &#x674E;&#x4F73;&#x7950;
+            option
+              span(style='font-family:DFKai-sb;') 10756044 &#x8521;&#x4F51;&#x6148;
+          .modal-footer
+            button.btn.btn-danger(type='button' data-dismiss='modal') &#x95DC;&#x9589;
+    each row in rows
+      br
+      br
+      .card.text-center.w-50
+        .card-header
+          h2 #{row.title}
+          h4=row.lastUpDateTime
+          h4 #{row.name+' '} &nbsp;
+            a(href="/users/"+row.owner)
+              img(src="/photo/"+row.owner, height='40')
+        .card-body
+          h5.card-title=row.content
+          if(row.fileName)
+            a(href="/photo/file/"+row.id) #{row.fileName}
+            br
+          img(src="../images/"+row.feeling+'.png' width='40' alt="")
+          if(user==row.owner)
+            a.btn.btn-primary(href='/msg/update/'+row.id) 修改
+            button.btn.btn-danger(type='button' data-toggle='modal' data-target='#exampleModal' onclick='Delete("'+row.id+'","'+row.title+'")')
+              | 刪除
+        .card-footer.text-muted
+          form(action="/sub/new" method='post')
+            input(type="hidden" name='fid' value=row.id)
+            input(type="hidden" name='owner' value=user)
+            input(type="hidden" name='title' value='123')
+            .mb-3.row
+              label.col-sm-2.col-form-label 回復
+              if(user)
+                .col-sm-8
+                  input.form-control(type='text' name='content')
+                .col-sm-1
+                  input.btn.btn-outline-success(type='submit' value='新增')
+              else
+                .col-sm-8
+                  input.form-control(type='text' name='content' disabled)
+          each sub in row.sub
+            hr
+            label #{sub.name} &nbsp;&nbsp;
+            a(href="/users/"+sub.owner)
+              img(src="/photo/"+sub.owner, height='40')
+            .mb-3.row
+              .col-sm-12
+                form(action="/sub/update" method='post')
+                  input(type="hidden" name='id' value=sub.id)
+                  .row
+                    .col-sm-9
+                      input.form-control(type='text' disabled id='subT'+row.id+'_'+sub.id value=sub.content name='content')
+                    if(user==sub.owner)
+                        .col-sm-3
+                          input.btn.btn-outline-primary(type='button' value='修改' onclick='Update("'+row.id+'","'+sub.id+'")' id='subB'+row.id+'_'+sub.id)
+                          input.btn.btn-outline-secondary(type='button' value='取消' onclick='Cancle("'+row.id+'","'+sub.id+'")' id='subC'+row.id+'_'+sub.id hidden)
+                          input.btn.btn-outline-primary(type='submit' value='確認' hidden id='subY'+row.id+'_'+sub.id)
+                          a.btn.btn-outline-danger(href="/sub/delete/"+sub.id id='subD'+row.id+'_'+sub.id) 刪除
+
+          
+    
+    #exampleModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
+      .modal-dialog
+        .modal-content
+          .modal-header
+            h5#exampleModalLabel.modal-title 刪除
+            button.close(type='button' data-dismiss='modal' aria-label='Close')
+              span(aria-hidden='true') &times;
+          .modal-body
+            label(id='mylbl') 確定要刪除嗎
+          .modal-footer
+            button.btn.btn-secondary(type='button' data-dismiss='modal') Close
+            form(action="/msg/delete" method='post')
+              input#myA(type="hidden" value='0' name='id')
+              input#myA.btn.btn-primary(type='submit' value='確定')

@@ -1,0 +1,75 @@
+extends myLayout
+
+block resName
+  script(type='').
+    function MyClick() {
+    var psd1 = document.getElementById("password");
+    var psd2 = document.getElementById("password2");
+    if(psd1.value!=psd2.value || psd1.value==''){psd2.setCustomValidity('密碼確認不正確');}
+    else{psd2.setCustomValidity('');}
+    }
+
+block content
+  #D1
+    h1
+      span(style='font-family:DFKai-sb;') 忘記密碼
+    form(method='post')
+      p
+        // 段落
+        .form-group
+          label(for='account number')
+            h4
+              span(style='font-family:DFKai-sb;') &#x5E33;&#x865F;
+          .row
+            .col-lg-4.col-md-3.col-sm-1
+            .col-lg-4.col-md-6.col-sm-10
+              input#userName.form-control(type='email' placeholder='name@example.com' name='userName')
+              br
+            .col-lg-4.col-md-3.col-sm-1
+          label(for='password')
+            h4
+              span(style='font-family:DFKai-sb;') &#x5BC6;&#x78BC;
+          br
+          .row
+            .col-lg-4.col-md-3.col-sm-1
+            .col-lg-4.col-md-6.col-sm-10
+              input#password.form-control(type='password' rows='3' name='password')
+            .col-lg-4.col-md-3.col-sm-1
+          label(for='password')
+            h4
+              span(style='font-family:DFKai-sb;') 確認密碼
+          br
+          .row
+            .col-lg-4.col-md-3.col-sm-1
+            .col-lg-4.col-md-6.col-sm-10
+              input#password2.form-control(type='password' rows='3' name='password2')
+            .col-lg-4.col-md-3.col-sm-1
+          br
+          input.btn.btn-info(type='submit' value='修改密碼' onclick='MyClick()')
+          br
+          br
+          // Button to Open the Modal
+          button.btn.btn-outline-secondary(type='button' data-toggle='modal' data-target='#myModal')
+            | &#x7D44;&#x54E1;&#x540D;&#x55AE;
+          // The Modal
+          #myModal.modal
+            .modal-dialog
+              .modal-content
+                // Modal Header
+                .modal-header
+                  h4.modal-title &#x7D44;&#x54E1;&#x540D;&#x55AE;
+                  button.close(type='button' data-dismiss='modal') &times;
+                // Modal body
+                .modal-body
+                  option
+                    span(style='font-family:DFKai-sb;') 10756001 &#x66FE;&#x54C1;&#x7FD4;
+                  option
+                    span(style='font-family:DFKai-sb;') 10756031 &#x8521;&#x6069;&#x8046;
+                  option
+                    span(style='font-family:DFKai-sb;') 10756032 &#x5433;  &#x971C;
+                  option
+                    span(style='font-family:DFKai-sb;') 10756040 &#x674E;&#x4F73;&#x7950;
+                  option
+                    span(style='font-family:DFKai-sb;') 10756044 &#x8521;&#x4F51;&#x6148;
+                .modal-footer
+                  button.btn.btn-danger(type='button' data-dismiss='modal') &#x95DC;&#x9589;

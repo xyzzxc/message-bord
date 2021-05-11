@@ -1,0 +1,89 @@
+doctype html
+head
+  meta(charset='utf-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+  link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css' integrity='sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z' crossorigin='anonymous')
+  title ocean message board
+  // 連結css檔
+  link(href='../stylesheets/main.css' rel='stylesheet')
+  // ..........
+  style.
+    body{
+    margin:0px;
+    padding:0px;
+    background:#fff url(../images/web03.png) center center fixed no-repeat;
+    background-size: cover;
+    }
+    .card {
+    position: relative;
+    display: -ms-flexbox;
+    display: block;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    }
+  script(src='https://code.jquery.com/jquery-1.10.1.min.js')
+  script(src='https://code.jquery.com/jquery-migrate-1.2.1.min.js')
+  block resName
+
+nav.navbar.navbar-expand-lg.navbar.navbar-light(style='background-color: #e3f2fd;')
+  a.navbar-brand(href='#')
+    img(src='../images/ocean.png' width='80' height='60' alt='' loading='lazy')
+  if(user==null)
+    a.navbar-brand(href='#')
+      h2
+        span(style='font-family:DFKai-sb;') 留言板
+    a.navbar-brand(href='/login')
+      h2
+        span(style='font-family:DFKai-sb;') 登入
+    a.navbar-brand(href='/registered')
+      h2
+        span(style='font-family:DFKai-sb;') 註冊
+  else
+    h2
+        span(style='font-family:DFKai-sb;') #{userName}
+  button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
+    span.navbar-toggler-icon
+  #navbarSupportedContent.collapse.navbar-collapse
+    ul.navbar-nav.mr-auto
+      li.nav-item.active
+        a.nav-link(href='#')
+          h5
+            span(style='font-family:DFKai-sb;') &#x9996;&#x9801;
+          span.sr-only (current)
+      li.nav-item
+        a.nav-link(href='#')
+          h5
+            span(style='font-family:DFKai-sb;') &#x767C;&#x8868;&#x6587;&#x7AE0;
+      li.nav-item.dropdown
+        a#navbarDropdown.nav-link.dropdown-toggle(href='#' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+          span(style='font-family:DFKai-sb;') &#x6240;&#x6709;&#x770B;&#x677F;
+        .dropdown-menu(aria-labelledby='navbarDropdown')
+          a.dropdown-item(href='#')
+            span(style='font-family:DFKai-sb;') &#x71B1;&#x9580;&#x7559;&#x8A00;
+          a.dropdown-item(href='#')
+            span(style='font-family:DFKai-sb;') &#x6700;&#x8FD1;&#x7559;&#x8A00;
+          .dropdown-divider
+          a.dropdown-item(href='#')
+            span(style='font-family:DFKai-sb;') &#x5FC3;&#x60C5;
+          a.dropdown-item(href='#')
+            span(style='font-family:DFKai-sb;') &#x65C5;&#x904A;
+          a.dropdown-item(href='#')
+            span(style='font-family:DFKai-sb;') &#x7F8E;&#x98DF;
+          a.dropdown-item(href='#')
+            span(style='font-family:DFKai-sb;') &#x5176;&#x4ED6;&#x5206;&#x985E;
+    form.form-inline.my-2.my-lg-0
+      input.form-control.mr-sm-2(type='search' placeholder='Search' aria-label='Search')
+      button.btn.btn-outline-info.my-2.my-sm-0(type='submit')
+        span(style='font-family:DFKai-sb;') &#x641C;&#x5C0B;
+
+block content
+
+script(src='https://code.jquery.com/jquery-3.5.1.slim.min.js' integrity='sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj' crossorigin='anonymous')
+script(src='https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js' integrity='sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN' crossorigin='anonymous')
+script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js' integrity='sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV' crossorigin='anonymous')

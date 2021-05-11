@@ -1,0 +1,36 @@
+extends myLayout
+
+block resName
+    link(href='../stylesheets/super-awsome.css' rel='stylesheet')
+
+block content
+    #D1
+        form(method='post' enctype='multipart/form-data')
+            input(type="hidden" name='owner' value=user)
+            label.form-label(for='title') 標題
+            .col-lg-4.col-md-3.col-sm-1
+            .col-lg-4.col-md-6.col-sm-10
+                input#title.form-control.form-control-lg(type='text' aria-label='.form-control-lg example' name='title' required)
+            .col-lg-4.col-md-3.col-sm-1
+            .col-lg-4.col-md-3.col-sm-1
+            .col-lg-4.col-md-6.col-sm-10
+                label.form-label(for='exampleFormControlTextarea1') 內容
+                textarea#exampleFormControlTextarea1.form-control(rows='3' name='content')
+            .col-lg-4.col-md-3.col-sm-1
+            .col-lg-4.col-md-3.col-sm-1
+            .col-lg-4.col-md-6.col-sm-10
+                label.form-label(for='file') 附加檔案(可以不要)
+                input#file.form-control(type='file' rows='3' name='file')
+            .col-lg-4.col-md-3.col-sm-1
+            p 心情
+            .cc-selector
+                input#happy(type='radio' name='feeling' value='happy' checked)
+                label.drinkcard-cc.happy(for='happy')
+                input#relax(type='radio' name='feeling' value='relax')
+                label.drinkcard-cc.relax(for='relax')
+                input#sad(type='radio' name='feeling' value='sad')
+                label.drinkcard-cc.sad(for='sad')
+                input#what(type='radio' name='feeling' value='what')
+                label.drinkcard-cc.what(for='what')
+            input.btn.btn-primary(type="submit" value='送出')
+

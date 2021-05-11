@@ -1,0 +1,17 @@
+extends myLayout
+
+block content
+    #D1
+        br
+        br
+        h1 #{name}
+        img(src="/photo/"+id, alt="", height='200')
+        h1 興趣：
+        h2 #{interest}
+        h1 性別：
+        if(sex=='man')
+            h2 男
+        else if(sex=='woman')
+            h2 女
+        else
+            h2 這真的很難說

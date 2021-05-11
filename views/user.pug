@@ -1,0 +1,78 @@
+extends myLayout
+
+block resName
+  link(href='../stylesheets/super-awsome.css' rel='stylesheet')
+
+  script(type='text/javascript').
+    function Interest()
+    {
+      var e=document.forms[1].elements;
+      var int = document.getElementById('int')
+      var interest = document.getElementById('interest')
+      for(var i=0; i<e.length;i++){
+          if(e[i].type == 'checkbox' && e[i].checked == true){
+              var values = e[i].value.split(',')
+              int.value += values[0]+','
+              interest.value += values[1]+','   
+          }
+      }
+      int.value = int.value.substr(0,int.value.length-1)
+      interest.value = interest.value.substr(0,interest.value.length-1)
+    }
+    function Myload(){
+      var sex = document.getElementById('sex').value
+      var rad = document.getElementById(sex)
+      rad.checked = true
+    
+      var checks = document.getElementById('checks').value
+      checks = checks.split(',')
+      for(var i=0; i<checks.length;i++){
+          var cb = document.getElementById(checks[i])
+          cb.checked=true
+      }
+    }
+
+block content
+    body(onload='Myload()')
+        #D1
+            input#checks(type="hidden" value=int)
+            input#sex(type="hidden" value=sex)
+            h1
+                span(style='font-family:DFKai-sb;') 修改個資
+            form(method='post' enctype='multipart/form-data')
+                h3 原始頭貼
+                br
+                img(src="/photo/"+id, height='200')
+                br
+                input(type="hidden" name='id' value=id)
+                h3 #{email}
+                label.form-label(for='Name') 姓名
+                .col-lg-4.col-md-3.col-sm-1
+                .col-lg-4.col-md-6.col-sm-10
+                    input#Name.form-control.form-control-lg(type='text' aria-label='.form-control-lg example' value=name name='Name' required)
+                .col-lg-4.col-md-3.col-sm-1
+                .col-lg-4.col-md-3.col-sm-1
+                .col-lg-4.col-md-6.col-sm-10
+                    label.form-label(for='file') 覆蓋頭貼(選填)
+                    input#file.form-control(type='file' rows='3' name='file')
+                .col-lg-4.col-md-3.col-sm-1
+                h6 興趣
+                input(type="hidden" id='int' name='int' value='')
+                input(type="hidden" id='interest' name='interest' value='')
+                input(type="checkbox" id='cb1' value='cb1,新楓之谷')
+                label(for="cb1") &nbsp新楓之谷 &nbsp
+                input(type="checkbox" id='cb2' value='cb2,艾爾之光')
+                label(for="cb2") &nbsp艾爾之光 &nbsp
+                input(type="checkbox" id='cb3' value='cb3,洛克人')
+                label(for="cb3") &nbsp洛克人 &nbsp
+                br
+                h4
+                    span(style='font-family:DFKai-sb;') 性別
+                .cc-selector
+                    input#man(type='radio' name='sex' value='man')
+                    label.drinkcard-cc.man(for='man')
+                    input#woman(type='radio' name='sex' value='woman')
+                    label.drinkcard-cc.woman(for='woman')
+                    input#unknow(type='radio' name='sex' value='unknow')
+                    label.drinkcard-cc.unknow(for='unknow')
+                input.btn.btn-primary(type="submit" value='送出' onclick='Interest()')

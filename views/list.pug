@@ -1,0 +1,46 @@
+extends myLayout
+
+block content
+  #D1
+    P
+      .form-group
+        // Button to Open the Modal
+        button.btn.btn-outline-secondary(type='button' data-toggle='modal' data-target='#exampleModal')
+          | 新增
+        // The Modal
+        form(action="/chat/creat" method='post')
+          #exampleModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
+            .modal-dialog
+              .modal-content
+                .modal-header
+                  h5#exampleModalLabel.modal-title New message
+                  button.close(type='button' data-dismiss='modal' aria-label='Close')
+                    span(aria-hidden='true') &times;
+                .modal-body
+                  form
+                    .form-group
+                      label.col-form-label(for='recipient-name') 檔名(不含.txt)：
+                      input#recipient-name.form-control(type='text' name='fileName')
+                    .form-group
+                      label.col-form-label(for='message-text') 內容：
+                      textarea#message-text.form-control(cols='50',rows='10' name='content')
+                .modal-footer
+                  button.btn.btn-secondary(type='button' data-dismiss='modal') Close
+                  input.btn.btn-primary(type='submit' value='Send message')
+    - var i = 0;
+      while i<outtxt.length   
+          .card(style='width: 25rem;')
+            .card-body
+              h5.card-title #{outtxt[i].title}
+              form(action="/chat/edit" method='post')
+                input(type="hidden" value=outtxt[i].title name='title')
+                input(type="hidden" value=outtxt[i].id name='tID')
+                textarea#message-text.form-control(name='content' cols='40') #{outtxt[i].content}
+                br
+                input.btn.btn-primary(type='submit' value='編輯')
+              form(action="/chat/delete" method='post')
+                input(type="hidden" value=outtxt[i].id name='tID')
+                input.btn.btn-danger(type='submit' value='刪除')
+          br
+          br
+          - i++
